@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+Send Bult SMS
+{% endblock title %}
+
+
+{% block content %}
+<main>
+    <center>
+        <form action="{% url 'send_bulk_sms' %}" method="post">
+            {% csrf_token %}
+
+            <h2>Send SMS</h2>
+            <hr class="col-3">
+            <div class="col-5">
+                {{ form.title }} <br>
+                {{ form.content|safe }} <br>
+                {{ form.recipients|safe }}
+            </div>
+            <br>
+            <input class="btn btn-primary btn-sm" type="submit" value="Send">
+        </form>
+    </center>
+
+</main>
+{% endblock content %}

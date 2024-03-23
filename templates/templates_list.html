@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+Templates
+{% endblock title %}
+
+{% block content %}
+<main>
+    {% for template in templates %}
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    {{template.title}}
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"> {{template.content|safe }} <br>
+                    <p>
+                        <a class="btn btn-outline-success btn-sm "
+                            href="{% url 'trigger_send' template.content template.recipients %}">send</a>
+                        <a class="btn btn-outline-warning btn-sm" href="{% url 'edit_template' template.id %}">edit</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div> <br>
+    {% empty %}
+    <p>Empty...</p>
+    {% endfor %}
+</main>
+{% endblock content %}

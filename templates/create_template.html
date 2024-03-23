@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Template
+{% endblock title %}
+
+{% block content %}
+<form action="" method="post">
+    <!-- {% load crispy_forms_tags %} -->
+    {% csrf_token %}
+    <center>
+        <div class="col-5">
+            {{ form.as_p}}
+            <br>
+            <input class="btn btn-primary btn-sm type=" type="submit" value="Save Template">
+        </div>
+    </center>
+</form>
+{% endblock content %}
