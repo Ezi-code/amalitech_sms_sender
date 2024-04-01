@@ -1,12 +1,12 @@
 from django import forms
-from .models import Messages, Templates
+from .models import Messages
 from django.contrib.auth.models import User
 
 
 class MessagesForm(forms.ModelForm):
     class Meta:
         model = Messages
-        fields = ["title", "content", "recipients"]
+        fields = ["title", "content", "recipients", "is_template"]
         widgets = {
             "title": forms.TextInput(
                 attrs={
@@ -14,6 +14,7 @@ class MessagesForm(forms.ModelForm):
                     "placeholder": "Title",
                     "required": True,
                     "type": "text",
+                    "placeholder": "Title of SMS",
                 }
             ),
             "content": forms.Textarea(
@@ -36,22 +37,11 @@ class MessagesForm(forms.ModelForm):
                     "cols": 7,
                 }
             ),
+            "is_template": forms.CheckboxInput(attrs={"required": True}),
         }
 
 
-class TemplatesForm(forms.ModelForm):
-    class Meta:
-        model = Templates
-        fields = ["title", "content", "recipients"]
-        widgets = {
-            "title": forms.TextInput(attrs={"class": "form-control"}),
-            "content": forms.Textarea(
-                attrs={"class": "form-control", "rows": 5, "cols": 7}
-            ),
-            "recipients": forms.Textarea(
-                attrs={"class": "form-control", "rows": 5, "cols": 7}
-            ),
-        }
+
 
 
 class LoginForm(forms.ModelForm):

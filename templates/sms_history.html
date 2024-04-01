@@ -7,25 +7,28 @@ History
 {% block content %}
 <main>
     {% for message in sms_messages %}
-    <div class="accordion accordion-flush" id="accordionFlushExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    {{message.title}}
-                </button>
-            </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body"> {{message.content|safe }} <br>
-                    <p>
-                        <a class="btn btn-outline-success"
-                            href="{% url 'trigger_send' message.content message.recipients %}">resend</a>
-                        <a class="btn btn-outline-warning" href="{% url 'edit_sms' message.id %}">edit</a>
-                    </p>
+    <center>
+        <div class="col-9 accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        {{message.message.title}} -- {{message.timestamp}}
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"> {{message.message.content|safe }} <br>
+                        <p>
+                            <a class="btn btn-outline-success btn-sm"
+                                href="{% url 'trigger_send' message.message.id %}">resend</a>
+                            <a class="btn btn-outline-warning btn-sm"
+                                href="{% url 'edit_sms' message.message.id %}">edit</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div> <br>
+    </center> <br>
     {% empty %}
     <p>Empty...</p>
     {% endfor %}

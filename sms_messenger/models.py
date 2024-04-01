@@ -13,35 +13,28 @@ class Messages(models.Model):
     title = models.CharField(max_length=150, null=True)
     content = models.TextField()
     recipients = models.TextField()
-    sent_at = models.DateTimeField(default=timezone.now)
+    is_template = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        ordering = ["-sent_at"]
+        ordering = ("-timestamp",)
 
     def __str__(self):
-        return f"{self.title} >> {self.sent_at}"
+        return self.title
 
 
 class MessageHistory(models.Model):
-    message = models.ForeignKey(Messages, on_delete=models.CASCADE)
-    sent_date = models.DateTimeField(auto_now=True)
+    message = models.ForeignKey(Messages, on_delete=models.PROTECT)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ("-timestamp",)
 
     def __str__(self):
         return self.message.title
 
 
 @receiver(post_save, sender=Messages)
-def save_message_history(sender, instance, created, **kwargs):
+def history_post_save_receiver(sender,instance, created, **kwargs):
     if created:
         MessageHistory.objects.create(message=instance)
-
-
-class Templates(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, db_index=True)
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-    recipients = models.TextField(default=None)
-    created_at = models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        return self.title

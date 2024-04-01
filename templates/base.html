@@ -30,7 +30,7 @@
     .options li {
         list-style-type: none;
         padding: 5px 6px;
-        margin: 0 5px;
+        margin: 1rem 5px;
     }
 
     main {
@@ -39,7 +39,7 @@
 </style>
 
 <body>
-    <nav class="nav">
+    <nav class="nav justify-content-center">
         <ul>
             {% if request.user.is_authenticated %}
             <div class="options">

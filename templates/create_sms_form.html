@@ -14,12 +14,15 @@ Send Bult SMS
             <h2>Send SMS</h2>
             <hr class="col-3">
             <div class="col-5">
-                {{ form.title }} <br>
-                {{ form.content|safe }} <br>
-                {{ form.recipients|safe }}
+                <p>{{ form.title }}</p>
+                <p>{{ form.content|safe }}</p>
+                <p>
+                    {{ form.recipients|safe }}
+                    <caption>Seperate recipient numbers with spaces</caption>
+                </p>
             </div>
             <br>
-            <input class="btn btn-primary btn-sm" type="submit" value="Send">
+            <input class="btn btn-success btn-sm" type="submit" value="Send">
         </form>
     </center>
 

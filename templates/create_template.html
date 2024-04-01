@@ -10,9 +10,17 @@ Create Template
     {% csrf_token %}
     <center>
         <div class="col-5">
-            {{ form.as_p}}
+            <p>{{ form.title }}</p>
+            <p>{{ form.content }}</p>
+
+            <p>{{ form.recipients }}
+                <caption>Seperate recipient numbers with spaces</caption>
+            </p>
+            <p> <label for="is_template">Save as teplate</label>
+                {{ form.is_template }}
+            </p>
             <br>
-            <input class="btn btn-primary btn-sm type=" type="submit" value="Save Template">
+            <input class="btn btn-info btn-sm type=" type="submit" value="Save Template">
         </div>
     </center>
 </form>
